@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class AudienceMember : MonoBehaviour
 {
-	public Referee Referee;
+	public Referee referee;
 	
-    void Start()
+    public void OnEnable()
     {
 	    // Listen/Subscribe to event
 	    // Note, there's are no (). WHY? Because we're not actually
 	    // RUNNING the function. We're just recording what WILL run
 	    // later on.
-	    Referee.SawGoalEvent += RefereeOnSawGoalEvent;
+	    referee.SawGoalEvent += RefereeOnSawGoalEvent;
+    }
+    
+    public void OnDisable()
+    {
+	    referee.SawGoalEvent -= RefereeOnSawGoalEvent;
     }
 
-    private void RefereeOnSawGoalEvent()
+    private void RefereeOnSawGoalEvent(int teamIndex)
     {
 	    Debug.Log("AudienceMember: YAY BALL WENT INTO A BOX!");
     }
